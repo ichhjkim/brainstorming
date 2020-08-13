@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.food.ingredient.IngredientMapper">
+
+<select id="ingredients" resultType="com.food.ingredient.IngredientVO">
+	SELECT * FROM ingredients
+</select>
+
+<select id="getIngredient" resultType="com.food.ingredient.IngredientVO" parameterType="String" >
+ 	 SELECT * FROM INGREDIENTS
+ 	 WHERE NAME=#{name}
+ 	 LIMIT 1
+</select>
+
+<insert id="insertIngredient" parameterType="com.food.ingredient.IngredientVO">
+	INSERT INTO INGREDIENTS (
+	name,
+	ingredient,
+	efficacy,
+	photo,
+	shelfLife,
+	saveMethod,
+	kcal
+	)
+	VALUES (
+	#{name},
+	#{ingredient},
+	#{efficacy},
+	#{photo},
+	#{shelfLife},
+	#{saveMethod},
+	#{kcal}
+	);
+</insert>
+
+<delete id="deleteIngredient" parameterType="Integer">
+	DELETE FROM INGREDIENTS
+	WHERE NAME=#{id}
+</delete>
+
+<update id="updateIngredient" parameterType="com.food.ingredient.IngredientVO">
+	UPDATE INGREDIENTS
+	SET name=#{name},
+		ingredient=#{ingredient},
+		efficacy=#{efficacy}
+		photo=#{photo},
+		shelfLife=#{shelfLife},
+		saveMethod=#{saveMethod},
+		kcal=#{kcal}
+</update>
+
+</mapper>

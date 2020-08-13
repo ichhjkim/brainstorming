@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.food.AccoountIngredientMapper">
+
+<select id="allIngredients" resultType="com.food.AccountIngredient.AccountIngredientVO">
+ SELECT * FROM ACCOUNTINGREDIENT
+ WHERE user_nickname=#{0}
+</select>
+
+<insert id="insertIngredient" "com.food.AccountIngredient.AccountIngredientVO">
+INSERT INTO ACCOUNTINGREDIENT(
+	user_nickname,
+	ingredient_name,
+	count,
+	buying_date,
+	shelfLife
+) VALUES(
+	#{user_nickname},
+	#{ingredient_name},
+	#{count},
+	#{buying_date},
+	#{shelfLife}
+)
+</insert>
+
+<delete id="deleteIngredient" parameterType="String">
+DELETE FROM ACCOUNTINGREDIENT
+WHERE user_nickname=#{0} 
+AND ingredient_name=#{1}
+</delete>
+
+<update id="updateIngredient" parameterType="com.food.AccountIngredient.AccountIngredientVO">
+UPDATE ACCOUNTINGREDIENT
+SET count = #{count}
+WHERE user_nickname=#{user_nickname} 
+AND ingredient_name=#{ingredient_name}
+</update>
+
+</mapper>

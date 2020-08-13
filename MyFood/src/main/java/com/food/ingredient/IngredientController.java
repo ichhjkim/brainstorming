@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,8 +56,66 @@ public class IngredientController {
 	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
 	public Object getIngredient(@PathVariable(required = true) String name) throws SQLException{
 		IngredientVO ingredientVO = service.getIngredient(name);
+		BasicResponse result = new BasicResponse();
+		result.status = true;
 		
-		
+		if(ingredientVO != null) {
+			result.data = "success";
+			result.object = ingredientVO;
+		} else {
+			result.data = "false";
+			result.object = "해당 재료를 찾을 수 없거나, 불러오는데 실패했습니다";
+		}
+		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public Object insertIngredient(@RequestBody IngredientVO ingredientVO) throws SQLException{
+		boolean res = service.insertIngredient(ingredientVO);
+		BasicResponse result = new BasicResponse();
+		result.status = true;
+		if (res == true) {
+			result.data = "success";
+			result.object = res;
+		} else {
+			result.data = "false";
+			result.object = res;
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
+	public Object deleteIngredient(@PathVariable String name) throws SQLException {
+		
+		BasicResponse result = new BasicResponse();
+		boolean res = service.deleteIngredient(name);
+		if (res==true) {
+			result.data = "success";
+			result.object = res;
+		} else {
+			result.data = "false";
+			result.object = res;
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/", method = RequestMethod.PATCH)
+	public Object updataIngredient(@RequestBody IngredientVO ingredientVO) throws SQLException {
+		BasicResponse result = new BasicResponse();
+		boolean res = service.updateIngredient(ingredientVO);
+		if (res == true) {
+			result.data = "success";
+			result.object = res;
+		} else {
+			result.data = "false";
+			result.object = res;
+		}
+		
+		return result;
+	}
+	
 
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.food.MyTodayFood.MyTodayFoodMapper">
+
+<select id="myTodayFoods" resultType="com.food.MyTodayFood.MyTodayFoodVO">
+	SELECT * FROM MYTODAYFOOD
+	WHERE user_nickname=#{0}
+</select>
+
+<insert id="insertMyTodayFood" parameterType="com.food.MyTodayFood.MyTodayFoodVO">
+		INSERT INTO MYTODAYFOOD(
+		user_nickname,
+		recipe_name,
+		eating_time, 
+		today
+	)
+	 VALUES (
+		#{user_nickname},
+		#{recipe_name},
+		#{eating_time},
+		#{today}
+	)
+</insert>
+
+<update id="updateMyTodayFood" parameterType="com.food.MyTodayFood.MyTodayFoodVO">
+	UPDATE MYTODAYFOOD
+	SET
+	recipe_name=#{recipe_name},
+	eating_time=#{eating_time}
+	WHERE id=#{id} 
+</update>
+
+<delete id="deleteMyTodayFood" parameterType="String">
+DELETE FROM MYTODAYFOOD
+WHERE user_nickname=#{0}
+AND id=#{1}
+</delete>
+
+</mapper>
